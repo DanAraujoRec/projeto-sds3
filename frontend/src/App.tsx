@@ -1,4 +1,4 @@
-import DataTable from "components/datatable";
+import DataTable from "components/dataTable";
 import Footer from "components/footer";
 import NavBar from "components/navbar";
 
