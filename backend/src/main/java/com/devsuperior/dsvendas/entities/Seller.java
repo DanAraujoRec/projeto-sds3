@@ -1,15 +1,15 @@
-package com.devsuperior.dsvendas.entity;
+package com.devsuperior.dsvendas.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -18,12 +18,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "tb_sales")
-public class Sale implements Serializable{
+@Table(name = "tb_sellers")
+public class Seller implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -32,18 +32,9 @@ public class Sale implements Serializable{
 	private Long id;
 	
 	@Column(nullable = false)
-	private Integer visited;
+	private String name;
 	
-	@Column(nullable = false)
-	private Integer deals;
+	@OneToMany(mappedBy = "seller")
+	private List<Sale> sales = new ArrayList<>();
 	
-	@Column(nullable = false)
-	private Double amount;
-	
-	@Column(nullable = false)
-	private LocalDate date;
-	
-	@ManyToOne
-	@JoinColumn(name = "seller_id")
-	private Seller seller;
 }
