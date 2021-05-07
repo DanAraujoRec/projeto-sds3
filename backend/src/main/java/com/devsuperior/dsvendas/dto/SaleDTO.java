@@ -1,53 +1,36 @@
-package com.devsuperior.dsvendas.entities;
+package com.devsuperior.dsvendas.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import com.devsuperior.dsvendas.entities.Sale;
 
-@Entity
-@Table(name = "tb_sales")
-public class Sale implements Serializable {
+public class SaleDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@Column(name = "id", unique = true)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Long id;
-
-	@Column(nullable = false)
 	private Integer visited;
-
-	@Column(nullable = false)
 	private Integer deals;
-
-	@Column(nullable = false)
 	private Double amount;
-
-	@Column(nullable = false)
 	private LocalDate date;
-
-	@ManyToOne
-	@JoinColumn(name = "seller_id")
-	private Seller seller;
-
-	public Sale() {
+	
+	public SaleDTO() {
 	}
 
-	public Sale(Long id, Integer visited, Integer deals, Double amount, LocalDate date, Seller seller) {
+	public SaleDTO(Long id, Integer visited, Integer deals, Double amount, LocalDate date) {
 		this.id = id;
 		this.visited = visited;
 		this.deals = deals;
 		this.amount = amount;
 		this.date = date;
-		this.seller = seller;
+	}
+	
+	public SaleDTO(Sale entity) {
+		id = entity.getId();
+		visited = entity.getVisited();
+		deals = entity.getDeals();
+		amount = entity.getAmount();
+		date = entity.getDate();
 	}
 
 	public Long getId() {
@@ -90,14 +73,6 @@ public class Sale implements Serializable {
 		this.date = date;
 	}
 
-	public Seller getSeller() {
-		return seller;
-	}
-
-	public void setSeller(Seller seller) {
-		this.seller = seller;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -114,7 +89,7 @@ public class Sale implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Sale other = (Sale) obj;
+		SaleDTO other = (SaleDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -122,5 +97,4 @@ public class Sale implements Serializable {
 			return false;
 		return true;
 	}
-
 }
